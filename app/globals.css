@@ -1,0 +1,16 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #ffffff;
+  font-family: 'Reem Kufi', sans-serif;
+  color: #111111;
+  -webkit-font-smoothing: antialiased;
+}
+
+button, input {
+  font-family: 'Reem Kufi', sans-serif;
+}
