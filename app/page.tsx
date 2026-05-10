@@ -585,7 +585,7 @@ const styles: Record<string, React.CSSProperties> = {
   },
   quoteCard: {
     width: '100%',
-    maxWidth: '680px',
+    maxWidth: '820px',
     border: '1px solid #e8e8e8',
     borderRadius: '2px',
     padding: '40px 48px',
