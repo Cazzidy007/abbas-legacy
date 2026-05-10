@@ -7,99 +7,10 @@ import { supabase } from '../lib/supabase'
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
 const DAYS = ['SUN','MON','TUE','WED','THU','FRI','SAT']
 
-const QUOTES = [
-  { text: "Do not let your difficulties fill you with anxiety, after all it is only in the darkest nights that stars shine more brightly.", author: "Ali ibn Abi Talib" },
-  { text: "The strongest among you is the one who controls his anger.", author: "Ali ibn Abi Talib" },
-  { text: "Silence is the best reply to a fool.", author: "Ali ibn Abi Talib" },
-  { text: "He who has a thousand friends has not a friend to spare.", author: "Ali ibn Abi Talib" },
-  { text: "Do not be a slave to others when God has created you free.", author: "Ali ibn Abi Talib" },
-  { text: "Patience is of two kinds: patience over what pains you, and patience against what you covet.", author: "Ali ibn Abi Talib" },
-  { text: "A moment of patience in a moment of anger saves a thousand moments of regret.", author: "Ali ibn Abi Talib" },
-  { text: "Knowledge is better than wealth. Knowledge guards you, while you guard wealth.", author: "Ali ibn Abi Talib" },
-  { text: "The tongue is like a lion. If you let it loose, it will wound someone.", author: "Ali ibn Abi Talib" },
-  { text: "Forgive and you will be forgiven.", author: "Ali ibn Abi Talib" },
-  { text: "Associate with people in such a manner that when you die, they weep for you, and while you are alive they long for your company.", author: "Ali ibn Abi Talib" },
-  { text: "The most complete gift of God is a life based on knowledge.", author: "Ali ibn Abi Talib" },
-  { text: "No honour is nobler than knowledge.", author: "Ali ibn Abi Talib" },
-  { text: "Two things define you: your patience when you have nothing, and your attitude when you have everything.", author: "Ali ibn Abi Talib" },
-  { text: "Be like the flower that gives its fragrance to even the hand that crushes it.", author: "Ali ibn Abi Talib" },
-  { text: "The wound is the place where the light enters you.", author: "Rumi" },
-  { text: "Do not grieve. Everything you lose comes round in another form.", author: "Rumi" },
-  { text: "Yesterday I was clever, so I wanted to change the world. Today I am wise, so I am changing myself.", author: "Rumi" },
-  { text: "What hurts you, blesses you. Darkness is your candle.", author: "Rumi" },
-  { text: "Out beyond ideas of wrongdoing and rightdoing, there is a field. I will meet you there.", author: "Rumi" },
-  { text: "Sell your cleverness and buy bewilderment.", author: "Rumi" },
-  { text: "The quieter you become, the more you are able to hear.", author: "Rumi" },
-  { text: "Let the beauty of what you love be what you do.", author: "Rumi" },
-  { text: "Raise your words, not your voice. It is rain that grows flowers, not thunder.", author: "Rumi" },
-  { text: "Live where you fear to live. Destroy your reputation. Be notorious.", author: "Rumi" },
-  { text: "This human being is a guest house. Every morning a new arrival.", author: "Rumi" },
-  { text: "The garden of the world has no limits, except in your mind.", author: "Rumi" },
-  { text: "We are what we repeatedly do. Excellence, then, is not an act but a habit.", author: "Aristotle" },
-  { text: "Knowing yourself is the beginning of all wisdom.", author: "Aristotle" },
-  { text: "It does not matter how slowly you go as long as you do not stop.", author: "Confucius" },
-  { text: "A journey of a thousand miles begins with a single step.", author: "Lao Tzu" },
-  { text: "The best time to plant a tree was twenty years ago. The second best time is now.", author: "Chinese Proverb" },
-  { text: "In the middle of every difficulty lies opportunity.", author: "Albert Einstein" },
-  { text: "Imagination is more important than knowledge.", author: "Albert Einstein" },
-  { text: "Success is not final; failure is not fatal: it is the courage to continue that counts.", author: "Winston Churchill" },
-  { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
-  { text: "Your time is limited, so don't waste it living someone else's life.", author: "Steve Jobs" },
-  { text: "Not how long, but how well you have lived is the main thing.", author: "Seneca" },
-  { text: "Luck is what happens when preparation meets opportunity.", author: "Seneca" },
-  { text: "Waste no more time arguing what a good person should be. Be one.", author: "Marcus Aurelius" },
-  { text: "You have power over your mind, not outside events. Realize this, and you will find strength.", author: "Marcus Aurelius" },
-  { text: "The impediment to action advances action. What stands in the way becomes the way.", author: "Marcus Aurelius" },
-  { text: "Confine yourself to the present.", author: "Marcus Aurelius" },
-  { text: "Very little is needed to make a happy life; it is all within yourself, in your way of thinking.", author: "Marcus Aurelius" },
-  { text: "Discipline is the bridge between goals and accomplishment.", author: "Jim Rohn" },
-  { text: "If you are not willing to risk the usual, you will have to settle for the ordinary.", author: "Jim Rohn" },
-  { text: "The secret of getting ahead is getting started.", author: "Mark Twain" },
-  { text: "It always seems impossible until it is done.", author: "Nelson Mandela" },
-  { text: "Do not go where the path may lead; go instead where there is no path and leave a trail.", author: "Ralph Waldo Emerson" },
-  { text: "What lies behind us and what lies before us are tiny matters compared to what lies within us.", author: "Ralph Waldo Emerson" },
-  { text: "Hardships often prepare ordinary people for an extraordinary destiny.", author: "C.S. Lewis" },
-  { text: "You are never too old to set another goal or dream a new dream.", author: "C.S. Lewis" },
-  { text: "Fall seven times, stand up eight.", author: "Japanese Proverb" },
-  { text: "Vision without action is daydream. Action without vision is nightmare.", author: "Japanese Proverb" },
-  { text: "He who knows others is wise; he who knows himself is enlightened.", author: "Lao Tzu" },
-  { text: "To the mind that is still, the whole universe surrenders.", author: "Lao Tzu" },
-  { text: "Simplicity is the ultimate sophistication.", author: "Leonardo da Vinci" },
-  { text: "The noblest pleasure is the joy of understanding.", author: "Leonardo da Vinci" },
-  { text: "In three words I can sum up everything I've learned about life: it goes on.", author: "Robert Frost" },
-  { text: "The only person you are destined to become is the person you decide to be.", author: "Ralph Waldo Emerson" },
-  { text: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" },
-  { text: "Do what you can, with what you have, where you are.", author: "Theodore Roosevelt" },
-  { text: "We must be the change we wish to see in the world.", author: "Mahatma Gandhi" },
-  { text: "The weak can never forgive. Forgiveness is the attribute of the strong.", author: "Mahatma Gandhi" },
-  { text: "Live as if you were to die tomorrow. Learn as if you were to live forever.", author: "Mahatma Gandhi" },
-  { text: "Spread love everywhere you go. Let no one ever come to you without leaving happier.", author: "Mother Teresa" },
-  { text: "If you judge people, you have no time to love them.", author: "Mother Teresa" },
-  { text: "Keep your face always toward the sunshine, and shadows will fall behind you.", author: "Walt Whitman" },
-  { text: "There is nothing permanent except change.", author: "Heraclitus" },
-  { text: "Character is destiny.", author: "Heraclitus" },
-  { text: "No man ever steps in the same river twice, for it's not the same river and he's not the same man.", author: "Heraclitus" },
-  { text: "The secret of change is to focus all your energy not on fighting the old, but on building the new.", author: "Socrates" },
-  { text: "Education is the kindling of a flame, not the filling of a vessel.", author: "Socrates" },
-  { text: "By failing to prepare, you are preparing to fail.", author: "Benjamin Franklin" },
-  { text: "An investment in knowledge pays the best interest.", author: "Benjamin Franklin" },
-  { text: "Well done is better than well said.", author: "Benjamin Franklin" },
-  { text: "The mind is everything. What you think you become.", author: "Buddha" },
-  { text: "Three things cannot be long hidden: the sun, the moon, and the truth.", author: "Buddha" },
-  { text: "Peace comes from within. Do not seek it without.", author: "Buddha" },
-  { text: "In the end, it's not the years in your life that count. It's the life in your years.", author: "Abraham Lincoln" },
-  { text: "Give me six hours to chop down a tree and I will spend the first four sharpening the axe.", author: "Abraham Lincoln" },
-  { text: "I am not afraid of storms, for I am learning how to sail my ship.", author: "Louisa May Alcott" },
-  { text: "You only live once, but if you do it right, once is enough.", author: "Mae West" },
-  { text: "The most wasted of all days is one without laughter.", author: "e.e. cummings" },
-]
-
-function getDailyQuote() {
-  const now = new Date()
-  const dayOfMonth = now.getDate()
-  const month = now.getMonth()
-  const seed = dayOfMonth * 3 + month * 7
-  return QUOTES[seed % QUOTES.length]
+const QUOTE = {
+  text: "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन। मा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥",
+  translation: "You have a right to perform your prescribed duties, but you are not entitled to the fruits of your actions. Never consider yourself the cause of the results of your activities, and never be attached to not doing your duty.",
+  author: "Krishna — Bhagavad Gita, Chapter 2, Verse 47"
 }
 
 function localDateStr(d: Date = new Date()): string {
@@ -158,7 +69,6 @@ export default function Home() {
   const maxOffset = 351
   const canGoBack = windowOffset < maxOffset
   const canGoForward = windowOffset > 0
-  const quote = getDailyQuote()
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -405,8 +315,9 @@ export default function Home() {
       <div style={styles.quoteSection}>
         <div style={styles.quoteCard}>
           <div style={styles.quoteOrnament}>✦</div>
-          <p style={styles.quoteText}>"{quote.text}"</p>
-          <p style={styles.quoteAuthor}>— {quote.author}</p>
+          <p style={styles.quoteText}>{QUOTE.text}</p>
+          <p style={styles.quoteTranslation}>{QUOTE.translation}</p>
+          <p style={styles.quoteAuthor}>— {QUOTE.author}</p>
           <p style={styles.quoteDate}>{dateLabel}</p>
         </div>
       </div>
@@ -688,11 +599,20 @@ const styles: Record<string, React.CSSProperties> = {
   },
   quoteText: {
     fontFamily: "'Reem Kufi', sans-serif",
-    fontSize: '18px',
-    fontWeight: '500',
+    fontSize: '22px',
+    fontWeight: '600',
     color: '#111',
-    lineHeight: 1.75,
-    margin: '0 0 20px 0',
+    lineHeight: 1.8,
+    margin: '0 0 16px 0',
+    letterSpacing: '0.02em',
+  },
+  quoteTranslation: {
+    fontFamily: "'Reem Kufi', sans-serif",
+    fontSize: '14px',
+    fontStyle: 'italic' as const,
+    color: '#555',
+    lineHeight: 1.7,
+    margin: '0 0 16px 0',
     letterSpacing: '0.01em',
   },
   quoteAuthor: {
